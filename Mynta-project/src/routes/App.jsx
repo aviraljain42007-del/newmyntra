@@ -13,7 +13,7 @@ const fetchstatus = useSelector(store => store.fetchstatus)
 <Header></Header>
 <Fetchitems></Fetchitems>
  <Outlet />
-{/* { fetchstatus.fetching == true ? <LoadingSpinner /> : <Outlet />} */}
+ { fetchstatus.fetching == true ? <LoadingSpinner /> : <Outlet />} 
 <Footer></Footer>
    
 </>

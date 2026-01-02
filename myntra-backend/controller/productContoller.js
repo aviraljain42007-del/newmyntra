@@ -1,6 +1,6 @@
 const Product = require("../models/item");
 exports.addProduct = async (req, res) => {
-  try {
+  
     const product = new Product({
       ...req.body,
       image: req.file.path,
@@ -8,7 +8,10 @@ exports.addProduct = async (req, res) => {
 
     await product.save();
     res.status(201).json(product);
-  } catch (err) {
-    res.status(500).json({ message: "Upload failed" });
-  }
 };
+
+exports.deleteitem = async(req,res) =>{
+    const {id}= req.params;
+     await Product.findByIdAndDelete(id);
+    res.status(200).json({id})
+}

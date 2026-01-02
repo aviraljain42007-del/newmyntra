@@ -2,6 +2,7 @@ import { useSelector , useDispatch} from "react-redux";
 import { bagitemsactions } from "../store/bagslice";
 import { IoIosAddCircle } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
+import { deleteproduct } from "../../service/item";
 
 
 function Homeitem({item}){
@@ -15,6 +16,12 @@ dispatch(bagitemsactions.addtobag(item.id))
 }
 function handledeleteclick (){
 dispatch(bagitemsactions.deletefrombag(item.id))
+}
+async function handleremove(id){
+    await deleteproduct(id);
+    
+
+
 }
 
 
@@ -38,6 +45,7 @@ dispatch(bagitemsactions.deletefrombag(item.id))
       </div>
 
 {elementfound == true ? <button type="button" className="btn btn-success btn-add-bag" onClick = {handleaddclick}> <IoIosAddCircle /> Add to bag</button> :<button type="button" className="btn btn-danger btn-add-bag"  onClick = {handledeleteclick}><MdDelete /> Remove from bag</button>}
+<button type="button" className="btn btn-warning btn-add-bag" onClick = {() => handleremove(item._id)}>  remove from list</button>
 
     </div>`
         </>
