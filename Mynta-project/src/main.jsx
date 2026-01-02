@@ -9,6 +9,8 @@ import Home from './routes/Home.jsx'
 import {Provider} from "react-redux"
 import myntrastore from './store/index.js'
 import Addnewitem from './routes/addnewitem.jsx';
+import Signup from './routes/signup.jsx';
+import Login from './routes/login.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,12 @@ const router = createBrowserRouter([
       },
       {path : "/additem",
         element : <Addnewitem />
+      },
+        {path : "/signup",
+        element : <Signup />
+      },
+        {path : "/login",
+        element : <Login />
       }
     ]
   }

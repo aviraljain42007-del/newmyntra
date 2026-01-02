@@ -4,6 +4,7 @@ import { FaShoppingBag } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
+import css from './header.module.css'
 function Header () {
 
 
@@ -27,17 +28,17 @@ const bagitems = useSelector(store => store.bagitems)
             <input className="search_input" placeholder="Search for products, brands and more" />
         </div>
         <div className="action_bar">
-            <div className="action_container">
+            <Link className={`action_container ${css.dark} ` } to = "/signup">
               <IoPersonCircleSharp />
-                <span className="action_name">Profile</span>
-            </div>
+                <span className="action_name">SignUp</span>
+            </Link>
 
-            <div className="action_container">
-               <FaRegFaceGrinHearts />
-                <span className="action_name">Wishlist</span>
-            </div>
+            <Link className={`action_container ${css.dark} `} to = "/login" >
+               <IoPersonCircleSharp />
+                <span className="action_name">Login</span>
+            </Link>
 
-            <Link className="action_container" to="/bag">
+            <Link className={`action_container ${css.dark} `} to="/bag">
                <FaShoppingBag />
                 <span className="action_name">Bag</span>
                 <span className="bag-item-count">{bagitems.length}</span>

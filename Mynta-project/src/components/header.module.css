@@ -1,0 +1,6 @@
+.dark{
+    color : black;
+}
+.dark:active{
+    color :blue;
+}
