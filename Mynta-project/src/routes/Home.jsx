@@ -5,7 +5,7 @@ function Home() {
   return (
     <div className="items-container">
       {items.map((item) => (
-        <Homeitem key={item.id} item={item}></Homeitem>
+        <Homeitem key={item._id} item={item}></Homeitem>
       ))}
     </div>
   );

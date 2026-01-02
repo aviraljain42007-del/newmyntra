@@ -2,10 +2,12 @@ import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { itemactions } from "../store/itemslice";
 import { addProduct } from "../../service/item";
+import { useState } from "react";
 
 function Addnewitem() {
+
+  const [image , setimage] =useState()
   const dispatch = useDispatch();
-  const imageelement = useRef();
   const companyelement = useRef();
   const itemnameelement = useRef();
   const originalelement = useRef();
@@ -17,37 +19,20 @@ function Addnewitem() {
   const countelement = useRef();
 
   async function handleclick (){
-    let datasend = {
-      itemName: itemnameelement.current.value,
-      company: companyelement.current.value,
-      originalPrice: Number(originalelement.current.value),
-      currentPrice: Number(currentelement.current.value),
-      discountPercentage: discountelement.current.value,
-      ratingStars: starelement.current.value,
-      ratingCount: countelement.current.value,
-      returnPeriod: returnelement.current.value,
-      deliveryDate: deliveryelement.current.value,
-      image: imageelement.current.value,
-    };
+  const formData = new FormData();
 
-    await addProduct(datasend);
+formData.append("itemName", itemnameelement.current.value);
+formData.append("company", companyelement.current.value);
+formData.append("originalPrice", originalelement.current.value);
+formData.append("currentPrice", currentelement.current.value);
+formData.append("discountPercentage", discountelement.current.value);
+formData.append("ratingStars", starelement.current.value);
+formData.append("ratingCount", countelement.current.value);
+formData.append("returnPeriod", returnelement.current.value);
+formData.append("deliveryDate", deliveryelement.current.value);
+formData.append("image", image);
 
-    dispatch(
-      itemactions.addsingleItems({
-        image: imageelement.current.value,
-        company: companyelement.current.value,
-        item_name: itemnameelement.current.value,
-        original_price: Number(originalelement.current.value),
-        current_price: Number(currentelement.current.value),
-        discount_percentage: discountelement.current.value,
-        return_period: returnelement.current.value,
-        delivery_date: deliveryelement.current.value,
-        rating: {
-          stars: starelement.current.value,
-          count: countelement.current.value,
-        },
-      })
-    );
+    await addProduct(formData);
   }
 
 
@@ -61,11 +46,12 @@ function Addnewitem() {
               Image Source
             </label>
             <input
-              ref={imageelement}
-              type="url"
+              type="file"
               id="image"
               className="form-control"
-              placeholder="https://example.com/image.jpg"
+              accept = "image/*"
+              onChange={
+                (e) => setimage(e.target.files[0])}
               required
             />
           </div>

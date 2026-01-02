@@ -6,7 +6,7 @@ function Bagitem({ item }) {
   const dispatch = useDispatch();
 
   const handleclick = () => {
-    dispatch(bagitemsactions.deletefrombag(item.id));
+    dispatch(bagitemsactions.deletefrombag(item._id));
   };
 
   return (
@@ -16,21 +16,21 @@ function Bagitem({ item }) {
       </div>
       <div className="item-right-part">
         <div className="company">{item.company}</div>
-        <div className="item-name">{item.item_name}</div>
+        <div className="item-name">{item.itemName}</div>
         <div className="price-container">
-          <span className="current-price">Rs {item.current_price}</span>
-          <span className="original-price">Rs {item.original_price}</span>
+          <span className="current-price">Rs {item.currentPrice}</span>
+          <span className="original-price">Rs {item.originalPrice}</span>
           <span className="discount-percentage">
-            ({item.discount_percentage}% OFF)
+            ({item.discountPercentage}% OFF)
           </span>
         </div>
         <div className="return-period">
-          <span className="return-period-days">{item.return_period} days</span>{" "}
+          <span className="return-period-days">{item.returnPeriod} days</span>{" "}
           return available
         </div>
         <div className="delivery-details">
           Delivery by
-          <span className="delivery-details-days">{item.delivery_date}</span>
+          <span className="delivery-details-days">{item.deliveryDate}</span>
         </div>
       </div>
 

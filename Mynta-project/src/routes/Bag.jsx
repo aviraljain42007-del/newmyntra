@@ -16,7 +16,7 @@ function Bag() {
       <main>
         <div class="bag-page">
           <div className="bag-item-container">
-            {iteme.map((item) =>  <Bagitem key = {item.id} item={item}></Bagitem>
+            {iteme.map((item) =>  <Bagitem key = {item._id} item={item}></Bagitem>
                   )}
            
           </div>

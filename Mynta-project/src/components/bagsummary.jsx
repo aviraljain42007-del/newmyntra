@@ -3,13 +3,13 @@ function Bagsummary() {
   const bagitem = useSelector((store) => store.bagitems);
   const items = useSelector((store) => store.items);
 
-  const iteme = items.filter((it) => bagitem.includes(it.id));
+  const iteme = items.filter((it) => bagitem.includes(it._id));
   let totalMRP = 0;
   let totaldiscount = 0;
   const totalItem = iteme.length;
   iteme.forEach((ik) => {
-    totalMRP += ik.original_price;
-    totaldiscount += ik.original_price - ik.current_price;
+    totalMRP += ik.originalPrice;
+    totaldiscount += ik.originalPrice - ik.currentPrice;
   });
   let delivery_charge = 40;
   let final = totalMRP - totaldiscount + delivery_charge;
