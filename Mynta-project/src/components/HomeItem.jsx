@@ -21,7 +21,11 @@ dispatch(bagitemsactions.deletefrombag(item.id))
     return(
         <>
          <div className="item-container">
-      <img className="item-image" src= {item.image} alt="item image" />
+     <img 
+  className="item-image" 
+  src={`http://localhost:3000/${item.image}`} 
+  alt="item image" 
+/>
       <div className="rating">
           {item.ratingStars} ⭐ | {item.ratingCount}
       </div>

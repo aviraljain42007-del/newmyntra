@@ -4,12 +4,11 @@ const path = require('path');
 // External Module
 const express = require('express');
 const cors = require('cors');
-const multer = require("multer");
+
 
 //Local Module
 
 const { default: mongoose } = require('mongoose');
-const { hostrouter } = require('./router/hostRoutes');
 const { userrouter } = require('./router/userRoutes');
 const router = require('./router/productrouter');
 
@@ -19,7 +18,6 @@ const app = express();
 app.use(cors({origin : "http://localhost:5173"}))
 app.use(express.json());
 
-app.use("/" ,hostrouter)
 app.use("/", userrouter)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/" , router)
