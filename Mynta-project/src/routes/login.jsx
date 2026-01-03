@@ -1,20 +1,82 @@
+import { useRef, useState } from "react";
+import { checklogin } from "../../service/item";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authactions } from "../store/auth";
+
 function Login() {
+  let navigate = useNavigate();
+
+  let [message, setmessage] = useState();
+
+  const dispatch = useDispatch() 
+  const email = useRef();
+  const password = useRef();
+
+  async function handleclick() {
+    let data = {
+      Email: email.current.value,
+      Password: password.current.value,
+    };
+
+    let item = await checklogin(data);
+    setmessage(item[0]);
+
+    if(item[0]=== "buyer" || item[0]=="vendor"){
+      navigate("/home")
+    }
+   dispatch(authactions.addword(item[0]))
+   dispatch(authactions.addname(item[1]))
+
+  }
+
   return (
     <>
       <div className="container mt-5">
         <h2 className="text-center mb-4">Login</h2>
-        <form style={{ maxWidth: '400px', margin: '0 auto' }}>
+        <center>
+{(message === "buyer" || message === "vendor")
+  ? null
+  : <p className="text-danger">{message}</p>
+}
+        </center>
+        <div style={{ maxWidth: "400px", margin: "0 auto" }}>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">Email address</label>
-            <input type="email"  placeholder='JaiShreeRam@gmail.com' className="form-control" id="email" aria-describedby="emailHelp" />
-            <div id="emailHelp" className="form-text">Enter your registered email.</div>
+            <label htmlFor="email" className="form-label">
+              Email address
+            </label>
+            <input
+              type="email"
+              ref={email}
+              placeholder="JaiShreeRam@gmail.com"
+              className="form-control"
+              id="email"
+              aria-describedby="emailHelp"
+            />
+            <div id="emailHelp" className="form-text">
+              Enter your registered email.
+            </div>
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password</label>
-            <input type="password"  placeholder='Maryada purushottam' className="form-control" id="password" />
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              ref={password}
+              placeholder="Maryada purushottam"
+              className="form-control"
+              id="password"
+            />
           </div>
-          <button type="submit" className="btn btn-danger w-100">Login</button>
-        </form>
+          <button className="btn btn-danger w-100" onClick={handleclick}>
+            Login
+          </button>
+          <center>
+            <a>Don,t have the account ? </a>
+          <a className="text-danger" href = "/signup">signup</a>
+        </center>
+        </div>
       </div>
     </>
   );

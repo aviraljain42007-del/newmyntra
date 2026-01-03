@@ -3,13 +3,12 @@ import { FaShoppingBag } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
-import css from './header.module.css'
-function Header () {
+import css from './headers.module.css'
+function Headers () {
 
 
 const bagitems = useSelector(store => store.bagitems)
 const auth = useSelector(store => store.auth)
-
 
     return(
 <header>
@@ -17,7 +16,6 @@ const auth = useSelector(store => store.auth)
             <Link to ="/home"><img className="myntra_home" src="images/myntra_logo.webp" alt="Myntra Home" /></Link>
         </div>
         <nav className="nav_bar">
-             <Link to="/additem">Add Item</Link>
             <a href="#">Men</a>
             <a href="#">Women</a>
             <a href="#">Kids</a>
@@ -33,11 +31,9 @@ const auth = useSelector(store => store.auth)
               <IoPersonCircleSharp />
                 <span className="action_name">Logout</span>
             </Link>
-
-            <div className = {`${css.divi}`}> <p className="action_name">welcome</p>
-                           <p> {auth.name}</p></div>
-                         
-           
+              <div className = {`${css.divi}`}> <p className="action_name">welcome</p>
+                <p> {auth.name}</p></div>
+              
 
             <Link className={`action_container ${css.dark} `} to="/bag">
                <FaShoppingBag />
@@ -48,4 +44,4 @@ const auth = useSelector(store => store.auth)
     </header>
     )
 }
-export default Header;
+export default Headers;
