@@ -13,6 +13,14 @@ export const getAllProducts = async () => {
   return await res.json();
 };
 
+export const getMe = async () => {
+  const res = await fetch("http://localhost:3000/me",{
+    credentials : "include",
+  });
+  const item = await res.json();
+  return item;
+};
+
 export const deleteproduct = async (id) => {
   const res = await fetch(`http://localhost:3000/delete${id}`, {
     method: "DELETE",
@@ -38,10 +46,26 @@ export const checklogin = async (data) => {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials : "include",
     body: JSON.stringify(data),
   });
 
   
   let item = await res.json();
   return item
+};
+
+
+export const seedetails = async(id) =>{
+  const res = await fetch(`http://localhost:3000/getdetails${id}`)
+  const item = await res.json();
+  return item;
+}
+
+export const logout = async () => {
+  const res = await fetch("http://localhost:3000/logout", {
+    method: "POST",
+    credentials: "include" //  MUST
+  });
+  return await res.json();
 };

@@ -1,11 +1,17 @@
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaShoppingBag } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../service/item";
 import { FaSearch } from "react-icons/fa";
 import css from './headers.module.css'
+import { authactions } from "../store/auth";
 function Headers () {
-
+const dispatch =useDispatch();
+  async function handle(){
+    await logout();
+    dispatch(authactions.logout())
+  }
 
 const bagitems = useSelector(store => store.bagitems)
 const auth = useSelector(store => store.auth)
@@ -27,10 +33,10 @@ const auth = useSelector(store => store.auth)
             <input className="search_input" placeholder="Search for products, brands and more" />
         </div>
         <div className="action_bar">
-            <Link className={`action_container ${css.dark} ` } to = "/login">
-              <IoPersonCircleSharp />
-                <span className="action_name">Logout</span>
-            </Link>
+             <Link onClick ={handle}className={`action_container ${css.dark} `} to="/login">
+                     <IoPersonCircleSharp />
+                     <span className="action_name">Logout</span>
+                   </Link>
               <div className = {`${css.divi}`}> <p className="action_name">welcome</p>
                 <p> {auth.name}</p></div>
               

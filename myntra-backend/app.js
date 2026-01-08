@@ -11,12 +11,16 @@ const cors = require('cors');
 const { default: mongoose } = require('mongoose');
 const { userrouter } = require('./router/userRoutes');
 const router = require('./router/productrouter');
+ const cookieParser = require('cookie-parser');
 
 const app = express();
 
 
-app.use(cors({origin : "http://localhost:5173"}))
+app.use(cors({origin : "http://localhost:5173",
+  credentials : true
+}))
 app.use(express.json());
+app.use(cookieParser())
 
 app.use("/", userrouter)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

@@ -11,6 +11,7 @@ import myntrastore from './store/index.js'
 import Addnewitem from './routes/addnewitem.jsx';
 import Signup from './routes/signup.jsx';
 import Login from './routes/login.jsx';
+import Detail from './routes/detail.jsx';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,10 @@ const router = createBrowserRouter([
       },
         {path : "/login",
         element : <Login />
-      }
+      },
+        {path : "/detail/:id",
+        element : <Detail />
+      },
     ]
   }
 ])

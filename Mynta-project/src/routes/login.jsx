@@ -1,8 +1,10 @@
-import { useRef, useState } from "react";
-import { checklogin } from "../../service/item";
+import { useEffect, useRef, useState } from "react";
+import { checklogin, getMe } from "../../service/item";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authactions } from "../store/auth";
+
+
 
 function Login() {
   let navigate = useNavigate();
@@ -20,13 +22,15 @@ function Login() {
     };
 
     let item = await checklogin(data);
-    setmessage(item[0]);
+    setmessage(item);
 
-    if(item[0]=== "buyer" || item[0]=="vendor"){
+  const details = await getMe();
+ dispatch(authactions.addtype(details.type))
+  dispatch(authactions.addname(details.name))
+  
+    if(item === "login successful") {
       navigate("/home")
     }
-   dispatch(authactions.addword(item[0]))
-   dispatch(authactions.addname(item[1]))
 
   }
 
