@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { checklogin, getMe } from "../../service/item";
+import { checklogin, getCartService, getMe } from "../../service/item";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authactions } from "../store/auth";
+import { bagitemsactions } from "../store/bagslice";
 
 
 
@@ -27,6 +28,9 @@ function Login() {
   const details = await getMe();
  dispatch(authactions.addtype(details.type))
   dispatch(authactions.addname(details.name))
+  dispatch(authactions.login())
+  const iteme = await getCartService();
+    dispatch(bagitemsactions.addtobag(iteme.items));
   
     if(item === "login successful") {
       navigate("/home")

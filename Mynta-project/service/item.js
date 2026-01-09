@@ -14,8 +14,8 @@ export const getAllProducts = async () => {
 };
 
 export const getMe = async () => {
-  const res = await fetch("http://localhost:3000/me",{
-    credentials : "include",
+  const res = await fetch("http://localhost:3000/me", {
+    credentials: "include",
   });
   const item = await res.json();
   return item;
@@ -46,26 +46,49 @@ export const checklogin = async (data) => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials : "include",
+    credentials: "include",
     body: JSON.stringify(data),
   });
 
-  
   let item = await res.json();
-  return item
+  return item;
 };
 
-
-export const seedetails = async(id) =>{
-  const res = await fetch(`http://localhost:3000/getdetails${id}`)
+export const seedetails = async (id) => {
+  const res = await fetch(`http://localhost:3000/getdetails${id}`);
   const item = await res.json();
   return item;
-}
+};
 
 export const logout = async () => {
   const res = await fetch("http://localhost:3000/logout", {
     method: "POST",
-    credentials: "include" //  MUST
+    credentials: "include", //  MUST
   });
   return await res.json();
+};
+export const addToCartService = async (productId) => {
+  const res = await fetch("http://localhost:3000/addtocart", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ productId }),
+  });
+  const item = await res.json();
+  return item;
+};
+
+export const getCartService = async () => {
+  const res = await fetch("http://localhost:3000/getcart", {
+    credentials: "include",
+  });
+  return res.json();
+};
+
+export const removeFromCartService = async (productId) => {
+  const res = await fetch(`http://localhost:3000/delete/${productId}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+  return res.json();
 };

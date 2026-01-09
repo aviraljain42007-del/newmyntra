@@ -5,18 +5,21 @@ import { Outlet} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingSpinner from "../components/spinner.jsx";
 import Headers from "../components/headers.jsx";
-import { getMe } from "../../service/item.js";
+import { getCartService, getMe } from "../../service/item.js";
 import { authactions } from "../store/auth.js";
 import { useEffect } from "react";
+import { bagitemsactions } from "../store/bagslice.js";
 function App() {
 
 const dispatch = useDispatch();
   useEffect(() => {
   const loadUser = async () => {
     const user = await getMe();
-  
+  const item = await getCartService();
+  dispatch(bagitemsactions.addtobag(item.items));
       dispatch(authactions.addtype(user.type));
-      dispatch(authactions.addname(user.name))
+      dispatch(authactions.addname(user.name));
+        dispatch(authactions.login())
     
   };
   loadUser();

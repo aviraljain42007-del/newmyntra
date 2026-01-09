@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const Product = require("../models/item");
 const signup = require("../models/userdetails");
 const { signToken } = require("../middleware/auth");
+const Cart = require("../models/cart");
 
 exports.getall = async (req, res) => {
   const products = await Product.find();
@@ -73,4 +74,53 @@ exports.logout = async (req, res) => {
   });
 
   res.status(200).json({ message: "Logged out successfully" });
+};
+
+exports.addToCart = async (req, res) => {
+  const userId = req.user.id;
+  const { productId } = req.body;
+
+  let cart = await Cart.findOne({ user: userId });
+
+  if (!cart) {
+    cart = new Cart({
+      user: userId,
+      items: [{ product: productId , quantity: 1 }]
+    });
+  } else {
+    const itemIndex = cart.items.findIndex(
+      item => item.product.toString() === productId
+    );
+
+    if (itemIndex > -1) {
+      cart.items[itemIndex].quantity += 1;
+    } else {
+      cart.items.push({ product: productId , quantity: 1});
+    }
+  }
+
+  await cart.save();
+  res.json(cart);
+};
+
+exports.getCart = async (req, res) => {
+  const cart = await Cart.findOne({ user: req.user.id })
+    .populate("items.product");
+
+  res.json(cart || { items: [] });
+};
+
+exports.removeFromCart = async (req, res) => {
+  const { productId } = req.params;
+
+  const cart = await Cart.findOne({ user: req.user.id });
+
+  if (!cart) return res.status(404).json({ message: "Cart not found" });
+
+  cart.items = cart.items.filter(
+    item => item.product.toString() !== productId
+  );
+
+  await cart.save();
+  res.json(cart);
 };

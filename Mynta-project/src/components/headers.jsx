@@ -2,10 +2,11 @@ import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaShoppingBag } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../service/item";
+import { getCartService, logout } from "../../service/item";
 import { FaSearch } from "react-icons/fa";
 import css from './headers.module.css'
 import { authactions } from "../store/auth";
+import { bagitemsactions } from "../store/bagslice";
 function Headers () {
 const dispatch =useDispatch();
   async function handle(){

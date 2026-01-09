@@ -3,13 +3,13 @@ const jwt = require("jsonwebtoken");
 
 const secret = "hello123";
 
-exports.signToken = (userj) => {
+exports.signToken = (user) => {
   return jwt.sign(
     {
-      id: userj._id,
-      role: userj.Type,
-      email: userj.Email,
-      name: userj.FirstName
+      id: user._id,
+      role: user.Type,
+      email: user.Email,
+      name: user.FirstName
     },
    secret,
     { expiresIn: "1d" }

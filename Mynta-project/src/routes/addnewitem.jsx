@@ -1,13 +1,15 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { itemactions } from "../store/itemslice";
-import { addProduct } from "../../service/item";
+import { addProduct, getAllProducts } from "../../service/item";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Addnewitem() {
 
   const [image , setimage] =useState()
   const dispatch = useDispatch();
+  const navigateto = useNavigate()
   const companyelement = useRef();
   const itemnameelement = useRef();
   const originalelement = useRef();
@@ -33,6 +35,9 @@ formData.append("deliveryDate", deliveryelement.current.value);
 formData.append("image", image);
 
     await addProduct(formData);
+    const items = await getAllProducts();
+dispatch(itemactions.addInitialItems(items))
+navigateto("/home")
   }
 
 

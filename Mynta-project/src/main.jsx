@@ -12,6 +12,7 @@ import Addnewitem from './routes/addnewitem.jsx';
 import Signup from './routes/signup.jsx';
 import Login from './routes/login.jsx';
 import Detail from './routes/detail.jsx';
+import  Protectectedroutes  from './store/protectroutes.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
         element : <Bag />
       },
       {path : "/additem",
-        element : <Addnewitem />
+        element : (
+          <Protectectedroutes role = "vendor">
+            <Addnewitem />
+          </Protectectedroutes>
+        )
       },
         {path : "/signup",
         element : <Signup />

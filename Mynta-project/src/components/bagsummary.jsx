@@ -1,18 +1,20 @@
 import { useSelector } from "react-redux";
 function Bagsummary() {
   const bagitem = useSelector((store) => store.bagitems);
-  const items = useSelector((store) => store.items);
 
-  const iteme = items.filter((it) => bagitem.includes(it._id));
-  let totalMRP = 0;
-  let totaldiscount = 0;
-  const totalItem = iteme.length;
-  iteme.forEach((ik) => {
-    totalMRP += ik.originalPrice;
-    totaldiscount += ik.originalPrice - ik.currentPrice;
-  });
-  let delivery_charge = 40;
-  let final = totalMRP - totaldiscount + delivery_charge;
+
+//console.log(bagitem.length);
+
+ 
+   let totalMRP = 0;
+   let totaldiscount = 0;
+   const totalItem = bagitem.length;
+   bagitem.forEach((ik) => {
+     totalMRP += ik.product.originalPrice*ik.quantity;
+     totaldiscount += ik.product.originalPrice*ik.quantity - ik.product.currentPrice*ik.quantity;
+   });
+   let delivery_charge = 40;
+   let final = totalMRP - totaldiscount + delivery_charge;
 
   return (
     <div class="bag-summary">
